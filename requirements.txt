@@ -3,3 +3,4 @@ pdfminer
 nltk
 transformers
 torch
+pypdf2
