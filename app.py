@@ -46,10 +46,10 @@ if __name__ == "__main__":
 
     # Procesar el archivo PDF
     if archivo_pdf is not None:
-        pdf_file = PyPDF2.PdfFileReader(archivo_pdf)
+        pdf_file = PyPDF2.PdfReader(archivo_pdf)
         texto = ""
-        for page in range(pdf_file.numPages):
-            texto += pdf_file.getPage(page).extractText()
+        for page in range(len(pdf_file.pages)):
+            texto += pdf_file.pages[page].extract_text()
         articulos = extraer_contenido(texto)
         resultados = analizar_contenido(articulos)
         mostrar_resultados(resultados)
