@@ -41,11 +41,10 @@ def mostrar_resultados(resultados):
         st.write(f"Artículo {resultado[0]}: {resultado[1]}")
 
 # Cargar el archivo PDF
-st.file_uploader("Cargar archivo PDF", type=["pdf"])
+archivo_pdf = st.file_uploader("Cargar archivo PDF", type=["pdf"], key="archivo_pdf")
 
 # Procesar el archivo PDF
-if st.button("Procesar"):
-    archivo_pdf = st.file_uploader("Cargar archivo PDF", type=["pdf"])
+if archivo_pdf is not None:
     texto = pdfminer.extract_text(archivo_pdf)
     articulos = extraer_contenido(texto)
     resultados = analizar_contenido(articulos)
