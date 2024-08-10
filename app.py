@@ -1,7 +1,7 @@
-import streamlit as st
 import pdfminer
 import nltk
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
+import PyPDF2
 
 # Configuración de la app
 st.title("Ley de Guatemala")
@@ -45,7 +45,10 @@ archivo_pdf = st.file_uploader("Cargar archivo PDF", type=["pdf"], key="archivo_
 
 # Procesar el archivo PDF
 if archivo_pdf is not None:
-    texto = pdfminer.extract_text(archivo_pdf)
+    pdf_file = PyPDF2.PdfFileReader(archivo_pdf)
+    texto = ""
+    for page in range(pdf_file.numPages):
+        texto += pdf_file.getPage(page).extractText()
     articulos = extraer_contenido(texto)
     resultados = analizar_contenido(articulos)
     mostrar_resultados(resultados)
